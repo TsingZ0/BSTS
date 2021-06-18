@@ -1,6 +1,12 @@
 # BSTS
 BSTS (Boolean and Spell-correction with Tolerant Search) is the implementation for the Web Search &amp; Mining course, which contains data crawling (Ubuntu IRC  data (2004~2021)) and preprocessing, boolean search, spell-correction with tolerant (fuzzy) search and simple web interface
 
+You can use operations such as AND(&), OR(space), NOT(%), and proximity (e.g., /3 /p /s +5 +p +s as in the Westlaw system), as well as association by parentheses.
+
+You can sort the results by 'type', 'time', 'sender', 'receiver', 'text', 'text_length'.
+
+You can set how many docs of the results you want to show.
+
 # How to use
 To begin with, you need to modify the all the `dir_path` and `file_path` according to you machine. The original codes are tested on Ubuntu. 
 - Firstly, get `conda` and install related packages in a virtual environment using `wsm.yml`:
@@ -40,3 +46,6 @@ To begin with, you need to modify the all the `dir_path` and `file_path` accordi
   # start the search engine and web interface
   python Search.py
   ```
+
+# Web Interface Demo
+![alt text](./web.png)
