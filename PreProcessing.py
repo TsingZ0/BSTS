@@ -13,13 +13,14 @@ read_root = IRCdir
 write_root = dir + "trials/"
 if not os.path.exists(write_root):
     os.makedirs(write_root)
+
 year_start = 2004
 year_end = 2022
 user_list = set()
 DocID = 0
 doc_list = []
 
-
+# transform raw data to structured data
 def trans(s):
     w = s.split()
     if w[0] == "===":
@@ -87,6 +88,7 @@ for year in range(year_start, year_end):
                             DocID += 1
                         except:
                             pass
+
 
 # store text in one single file for fast posting list generation
 write_name = write_root + "data.json"
