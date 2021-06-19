@@ -53,7 +53,7 @@ if words == None or Logs == None:
     words = list(tokenizer.word_index.keys())
     Logs = tokenizer.texts_to_sequences(Logs)
 
-gc.collect()
+# gc.collect()
 
 if not os.path.exists(words_path):
     with open(words_path, 'w+') as f:
@@ -89,7 +89,7 @@ def f(let):
             ujson.dump(posting_list[j], f)
 
     del posting_list
-    gc.collect()
+    # gc.collect()
 
 
 def run_parallel(words, Logs):
@@ -101,7 +101,7 @@ def run_parallel(words, Logs):
     Logs_ = manager.list(Logs)
     del Logs
 
-    gc.collect()
+    # gc.collect()
 
     # parallel without memeory keeping increasing
     with Pool(processes=len(letters)) as pool:

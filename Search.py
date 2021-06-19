@@ -48,8 +48,6 @@ with open(doc_root + "index.json") as f:
 with open(doc_root + "docidx.json") as f:
     docidx = ujson.load(f)
 
-docidx_keys = list(docidx.keys())
-
 print("Loading idxes costs time: ", time.time()-start)
 
 
@@ -271,7 +269,7 @@ def docdict_and(docd1, docd2):
     keys_ = []
     for did in docids:
         did = str(did)
-        keys_.extend(list(range(docidx[did], docidx[docidx_keys[docidx_keys.index(did)+1]])))
+        keys_.extend(list(range(docidx[did][0], docidx[did][0] + docidx[did][1])))
 
     docd_temp = dict()
     for key in keys_:
@@ -280,17 +278,17 @@ def docdict_and(docd1, docd2):
         if key in docd1 and key in docd2:
             docd_temp[key] = list(set(docd1[key]).union(set(docd2[key])))
         elif key in docd1:
-            docd_temp[key] = copy.deepcopy(docd1[key])
+            docd_temp[key] = docd1[key]
         elif key in docd2:
-            docd_temp[key] = copy.deepcopy(docd2[key])
+            docd_temp[key] = docd2[key]
 
     del docd1, docd2
-    gc.collect()
+    # gc.collect()
 
     return docd_temp
 
 def docdict_or(docd1, docd2):
-    docd_temp = copy.deepcopy(docd1)
+    docd_temp = docd1
 
     for k, v in docd2.items():
         if k not in docd_temp:
@@ -298,7 +296,7 @@ def docdict_or(docd1, docd2):
         docd_temp[k].extend(v)
 
     del docd1, docd2
-    gc.collect()
+    # gc.collect()
 
     return docd_temp
 
@@ -310,17 +308,17 @@ def docdict_not(docd1, docd2):
     keys_ = []
     for did in docids:
         did = str(did)
-        keys_.extend(list(range(docidx[did], docidx[docidx_keys[docidx_keys.index(did)+1]])))
+        keys_.extend(list(range(docidx[did][0], docidx[did][0] + docidx[did][1])))
 
     docd_temp = dict()
     for key in keys_:
         key = str(key)
         # some keys may not in both docd1 and docd2
         if key in docd1:
-            docd_temp[key] = copy.deepcopy(docd1[key])
+            docd_temp[key] = docd1[key]
 
     del docd1, docd2
-    gc.collect()
+    # gc.collect()
 
     return docd_temp
 
@@ -335,7 +333,7 @@ def docdict_ps(docd1, docd2, ps):
             docd_temp[key] = list(set(docd1[key]).union(set(docd2[key])))
 
     del docd1, docd2
-    gc.collect()
+    # gc.collect()
 
     return docd_temp
 
@@ -373,7 +371,7 @@ def docdict_n(docd1, docd2, n):
                     docd_temp[key].extend(docd1[key][idx1: idx2])
 
     del docd1, docd2
-    gc.collect()
+    # gc.collect()
 
     return docd_temp
 
@@ -409,9 +407,9 @@ def run():
 
 if __name__ == "__main__":
     # with cProfile.Profile() as pr:
-    #     input_keys = "monitor"
+    #     input_keys = "machine % learning"
     #     sort_item = "time"
-    #     show_doc_nums = 10
+    #     show_doc_nums = 20
     #     search(input_keys, sort_item, show_doc_nums)
     # pr.print_stats()
 
